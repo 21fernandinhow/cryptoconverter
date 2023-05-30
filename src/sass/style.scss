@@ -1,0 +1,141 @@
+//Imports
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+//Colors
+:root{
+    --primary-color: #769FCD; //#FFC26F;
+    --secondary-color: #f5f5f5;
+    --terciary-color: #fff;
+    --contrast-color: #1c1c1c;
+    --bg-color: #E5E0FF; //#F9E0BB;
+}
+
+//Extends
+.flex-central{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+//Customizing Itens
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 100,
+    'GRAD' 0,
+    'opsz' 48
+}
+
+body{
+    font-family: 'Roboto', sans-serif;
+    min-height: 100vh;
+    @extend .flex-central;
+    background-color: var(--bg-color);
+}
+
+main{
+    @extend .flex-central;
+    flex-direction: column;
+    min-height: 40vh;
+    padding: 15px;
+    margin: 15px;
+    background: var(--secondary-color);
+    border-radius: 40px;
+    box-shadow: 0px 3px 5px rgba(83, 127, 231, 0.4);
+    h1{
+        color: var(--primary-color);
+    }
+    h1, p{
+        margin: 10px;
+    }
+    .hr-expand{
+        border: 2px solid var(--primary-color);
+        animation: hr 3s linear infinite;
+        margin: 10px;
+    }
+    input{
+        max-width: 150px;
+        font-weight: bold;
+        padding: 9px 5px;
+        border: none;
+        background-color: var(--terciary-color);
+        border-radius: 20px;
+        text-align: center;
+        margin: 5px;
+    }
+    select{
+        font-size: 14px;
+        border: 1px solid var(--bg-color);
+        background: var(--terciary-color);
+        padding: 7px 5px;
+        border-radius: 15px;
+        option{
+            margin: 15px;
+            background-color: var(--terciary-color);
+            border: none;
+            color: var(--primary-color);
+            border-radius: 10px;
+        }
+    }
+    button{
+        font-weight: bold;
+        cursor: pointer;
+        border: none;
+    }
+    #invert-btn{
+        background: none;
+        color: var(--primary-color);
+        &:hover{
+            transform: rotate(360deg);
+            transition: 1.5s;
+        }
+    }
+    #convert-btn{
+        background-color: var(--primary-color);
+        color: var(--terciary-color);
+        padding: 12px 36px;
+        border-radius: 20px;
+        &:hover{
+            padding: 12px 60px;
+            box-shadow: 0px 3px 5px rgba(83, 127, 231, 0.4);
+            transition: 0.4s;
+        }
+    }
+    .row{
+        @extend .flex-central;
+        flex-wrap: wrap;
+        div{
+            margin: 10px;
+            @extend .flex-central;
+        }
+    }
+}
+
+//Responsivity
+@media (max-width: 700px) {
+    main{
+        input{
+            max-width: 100px;
+        }
+        .row{
+            .invert-div{
+                width: 100%;
+                min-height: 1px;
+                margin: 0px;
+            }
+        }
+    }
+}
+
+@keyframes hr{
+    0%{width: 30%;}
+    50%{width: 50%;}
+    100%{width: 30%;}
+}
+
