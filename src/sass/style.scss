@@ -3,11 +3,11 @@
 
 //Colors
 :root{
-    --primary-color: #769FCD; //#FFC26F;
+    --primary-color: #FFC26F; //#FFC26F or #769FCD
     --secondary-color: #f5f5f5;
     --terciary-color: #fff;
     --contrast-color: #1c1c1c;
-    --bg-color: #E5E0FF; //#F9E0BB;
+    --bg-color: #fffafa;
 }
 
 //Extends
@@ -48,7 +48,7 @@ main{
     margin: 15px;
     background: var(--secondary-color);
     border-radius: 40px;
-    box-shadow: 0px 3px 5px rgba(83, 127, 231, 0.4);
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.4);
     h1{
         color: var(--primary-color);
     }
@@ -104,7 +104,7 @@ main{
         border-radius: 20px;
         &:hover{
             padding: 12px 60px;
-            box-shadow: 0px 3px 5px rgba(83, 127, 231, 0.4);
+            box-shadow: 0px 2px 4px rgba(0,0,0, 0.4);
             transition: 0.4s;
         }
     }
