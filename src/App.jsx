@@ -44,10 +44,18 @@ function App() {
   const invert = () => {
     if(invertConversion === false){
       setInvertConversion(true)
-      document.querySelector('.row').style.setProperty("flex-direction", "row-reverse")
+      if(window.innerWidth < 701){
+        document.querySelector('.row').style.setProperty("flex-direction", "column-reverse")
+      } else {
+        document.querySelector('.row').style.setProperty("flex-direction", "row-reverse")
+      }
     } else {
       setInvertConversion(false)
-      document.querySelector('.row').style.setProperty("flex-direction", "row")
+      if(window.innerWidth < 701){
+        document.querySelector('.row').style.setProperty("flex-direction", "column")
+      } else {
+        document.querySelector('.row').style.setProperty("flex-direction", "row")
+      }
     }
   }
 
