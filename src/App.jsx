@@ -55,7 +55,7 @@ function App() {
     <>
       <main>
 
-        <h1>Cripto Converter</h1>
+        <h1>Crypto Converter</h1>
         <p>Converta o valor das principais criptomoedas em reais</p>
 
 
