@@ -47,7 +47,6 @@ main{
     flex-direction: column;
     min-height: 40vh;
     margin: 20px;
-    animation: fade-up 0.5s ease-out;
     h1{
         color: var(--primary-color);
     }
@@ -137,16 +136,5 @@ main{
     0%{width: 30%;}
     50%{width: 50%;}
     100%{width: 30%;}
-}
-
-@keyframes fade-up {
-    from {
-      opacity: 0;
-      transform: translateY(60px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
 }
 

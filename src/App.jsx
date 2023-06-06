@@ -1,4 +1,6 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import AOS from "aos";
+import "aos/dist/aos.css";
 import './css/style.css'
 
 function App() {
@@ -9,6 +11,11 @@ function App() {
   const coin = document.querySelector('#coins-value')
   const coinType = document.querySelector('#coins-options')
   const brl = document.querySelector('#brl-value')
+
+  useEffect(() => {
+    AOS.init();
+    AOS.refresh();
+  }, []);
 
   let getCoins = async () => {
     let BTC = await fetch(`https://www.mercadobitcoin.net/api/BTC/ticker/`).then(res=>res.json())
@@ -61,7 +68,7 @@ function App() {
 
   return (
     <>
-      <main>
+      <main data-aos="fade-up" data-aos-duration="1000">
 
         <h1>Crypto Converter</h1>
         <p>Converta o valor das principais criptomoedas em reais</p>
