@@ -71,6 +71,10 @@ main select option {
   border: none;
   border-radius: 10px;
 }
+main select:focus, main input:focus {
+  outline: none;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+}
 main button {
   font-weight: bold;
   cursor: pointer;

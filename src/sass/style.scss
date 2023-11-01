@@ -82,6 +82,12 @@ main{
             border-radius: 10px;
         }
     }
+    select, input{
+        &:focus{
+            outline: none;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+        }
+    }
     button{
         font-weight: bold;
         cursor: pointer;
