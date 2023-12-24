@@ -35,6 +35,7 @@ main {
   flex-direction: column;
   min-height: 40vh;
   margin: 20px;
+  animation: fadeUp 1s ease-out;
 }
 main h1 {
   color: var(--primary-color);
@@ -49,7 +50,7 @@ main .hr-expand {
   margin: 10px;
 }
 main input {
-  max-width: 150px;
+  max-width: 12em;
   font-weight: bold;
   padding: 9px 5px;
   border: none;
@@ -108,7 +109,7 @@ main .row div {
 
 @media (max-width: 700px) {
   main input {
-    max-width: 100px;
+    max-width: 10em;
   }
   main .row .invert-div {
     width: 100%;
@@ -125,6 +126,16 @@ main .row div {
   }
   100% {
     width: 30%;
+  }
+}
+@keyframes fade-up {
+  0% {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 

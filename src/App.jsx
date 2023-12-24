@@ -1,112 +1,93 @@
-import { useState, useEffect } from "react"
-import AOS from "aos";
-import "aos/dist/aos.css";
+import { useState } from "react"
 import './css/style.css'
 
-function App() {
+export default function App() {
 
-  const [coins, setCoins] = useState([]);
-  const [invertConversion, setInvertConversion] = useState(false);
-  const [feedback, setFeedback] = useState('Preencha os campos e clique em converter.');
-  const coin = document.querySelector('#coins-value')
-  const coinType = document.querySelector('#coins-options')
-  const brl = document.querySelector('#brl-value')
+  const [selectedCoin, setSelectedCoin] = useState('BTC')
+  const [howManyCoins, setHowManyCoins] = useState('')
+  const [howManyBRL, setHowManyBRL] = useState('')
+  const [invertedConversion, setInvertedConversion] = useState(false)
+  const [error, setError] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
+  const [feedback, setFeedback] = useState('Preencha os campos e clique em converter.')
 
-  useEffect(() => {
-    AOS.init();
-    AOS.refresh();
-  }, []);
-
-  let getCoins = async () => {
-    let BTC = await fetch(`https://www.mercadobitcoin.net/api/BTC/ticker/`).then(res=>res.json())
-    let ETH = await fetch(`https://www.mercadobitcoin.net/api/ETH/ticker/`).then(res=>res.json())
-    let DOGE = await fetch(`https://www.mercadobitcoin.net/api/DOGE/ticker/`).then(res=>res.json())
-    let USDT = await fetch(`https://www.mercadobitcoin.net/api/USDT/ticker/`).then(res=>res.json())
-    let ADA = await fetch(`https://www.mercadobitcoin.net/api/ADA/ticker/`).then(res=>res.json())
-
-    //setCoins([BTC.ticker.last, ETH.ticker.last, DOGE.ticker.last, USDT.ticker.last, ADA.ticker.last])
-    setCoins([
-      parseFloat(BTC.ticker.last).toFixed(2),
-      parseFloat(ETH.ticker.last).toFixed(2), 
-      parseFloat(DOGE.ticker.last).toFixed(2), 
-      parseFloat(USDT.ticker.last).toFixed(2), 
-      parseFloat(ADA.ticker.last).toFixed(2),  
-    ])
-  }
-
-  getCoins()
-
-  const convert = () => {
-    if(invertConversion === false){
-      let result = (coins[coinType.value]*coin.value).toFixed(2)
-      brl.value = result
-      setFeedback(`${coin.value} ${coinType[coinType.value].textContent} equivale a R$ ${result}`)
-    } else {
-      let result = (brl.value/coins[coinType.value]).toFixed(5)
-      coin.value = result
-      setFeedback(`R$ ${brl.value} equivale a ${result} ${coinType[coinType.value].textContent}`)
+  const getCoinValue = async () => {
+    try {
+      if(error){setError(false)}
+      const coinValue = await fetch(`https://www.mercadobitcoin.net/api/${selectedCoin}/ticker/`).then(res=>res.json())
+      return coinValue.ticker.last
+    } catch (error) {
+      setError(true)
+      setErrorMessage(`Erro ao consultar valor de criptomoeda: ${error}`)
     }
   }
 
-  const invert = () => {
-    if(invertConversion === false){
-      setInvertConversion(true)
-      if(window.innerWidth < 701){
-        document.querySelector('.row').style.setProperty("flex-direction", "column-reverse")
-      } else {
-        document.querySelector('.row').style.setProperty("flex-direction", "row-reverse")
-      }
+  const convert = async () => {
+    const selectedCoinValue = await getCoinValue()
+    let result, resultInfo
+
+    if(!invertedConversion){
+      result = (howManyCoins*selectedCoinValue)
+      resultInfo = `${howManyCoins} ${selectedCoin} equivale a ${result.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`
+      setHowManyBRL(result.toFixed(2))
     } else {
-      setInvertConversion(false)
-      if(window.innerWidth < 701){
-        document.querySelector('.row').style.setProperty("flex-direction", "column")
-      } else {
-        document.querySelector('.row').style.setProperty("flex-direction", "row")
-      }
+      result = (howManyBRL/selectedCoinValue)
+      resultInfo = `${(selectedCoinValue*result).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} equivale a ${result.toFixed(5)} ${selectedCoin}`
+      setHowManyCoins(result.toFixed(5))
     }
+
+    setFeedback(error ? errorMessage : resultInfo)
+  }
+
+  const invertInputsPosition = () => {
+    const reverse = !invertedConversion ? "-reverse" : ""
+    const collumOrRow = window.innerWidth < 701 ? "column" : "row"
+    document.querySelector('.row').style.setProperty("flex-direction", `${collumOrRow}${reverse}`)
+  }
+
+  const invertConversion = () => {
+    if(invertedConversion === false){
+      setInvertedConversion(true)
+    } else {
+      setInvertedConversion(false)
+    }
+    invertInputsPosition()
   }
 
   return (
-    <>
-      <main data-aos="fade-up" data-aos-duration="1000">
+    <main>
 
-        <h1>Crypto Converter</h1>
-        <p>Converta o valor das principais criptomoedas em reais</p>
+      <h1>Crypto Converter</h1>
+      <p>Converta o valor das principais criptomoedas em reais</p>
+      <hr className="hr-expand"/>
 
+      <div className="row">
 
-        <hr className="hr-expand"/>
-
-        <div className="row">
-
-          <div>
-            <input type="number" id="coins-value" placeholder="Criptomoeda"></input>
-            <select name="coin" id="coins-options">
-                <option value="0" className="BTC">Bitcoin</option>
-                <option value="1" className="ETH">Ethereum</option>
-                <option value="2" className="DOGE">Dogecoin</option>
-                <option value="3" className="USDT">Tether</option>
-                <option value="4" className="ADA">Cardano</option>
-            </select>
-          </div>
-          
-          <div className="invert-div">
-            <button onClick={invert} id="invert-btn"><span className="material-icons-outlined">currency_exchange</span></button>
-          </div>
-
-          <div>
-            <input type="number" id="brl-value" placeholder="R$"></input>
-            <label>BRL</label>
-          </div>
-
+        <div>
+          <input type="number" placeholder="Criptomoeda" value={howManyCoins} onChange={(e) => {setHowManyCoins(e.target.value)}} />
+          <select name="coin" value={selectedCoin} onChange={(e) => {setSelectedCoin(e.target.value)}}>
+              <option value="BTC" className="BTC">Bitcoin</option>
+              <option value="ETH" className="ETH">Ethereum</option>
+              <option value="DOGE" className="DOGE">Dogecoin</option>
+              <option value="USDT" className="USDT">Tether</option>
+              <option value="ADA" className="ADA">Cardano</option>
+          </select>
         </div>
 
-        <button onClick={convert} id="convert-btn">Converter</button>
+        <div className="invert-div">
+          <button onClick={invertConversion} id="invert-btn"><span className="material-icons-outlined">currency_exchange</span></button>
+        </div>
 
-        <p>{feedback}</p>
+        <div>
+          <input type="number" id="brl-value" placeholder="R$" value={howManyBRL} onChange={(e) => {setHowManyBRL(e.target.value)}} />
+          <label>BRL</label>
+        </div>
 
-      </main>
-    </>
+      </div>
+
+      <button onClick={convert} id="convert-btn">Converter</button>
+      <p>{feedback}</p>
+
+    </main>
   )
 }
-
-export default App
