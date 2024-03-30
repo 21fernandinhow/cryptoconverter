@@ -39,53 +39,69 @@ export default function App() {
     setFeedback(error ? errorMessage : resultInfo)
   }
 
-  const invertInputsPosition = () => {
-    const reverse = !invertedConversion ? "-reverse" : ""
-    const collumOrRow = window.innerWidth < 701 ? "column" : "row"
-    document.querySelector('.row').style.setProperty("flex-direction", `${collumOrRow}${reverse}`)
-  }
-
   const invertConversion = () => {
     if(invertedConversion === false){
       setInvertedConversion(true)
     } else {
       setInvertedConversion(false)
     }
-    invertInputsPosition()
   }
 
   return (
-    <main>
+    <main className="has-text-centered">
 
-      <h1>Crypto Converter</h1>
+      <h1 className="title">Crypto Converter</h1>
       <p>Converta o valor das principais criptomoedas em reais</p>
-      <hr className="hr-expand"/>
+      <hr className="hr-expand has-background-primary"/>
 
-      <div className="row">
+      <div 
+        className={`columns is-centered is-multiline mt-2 
+          ${invertedConversion ? `is-flex is-flex-direction-${window.innerWidth < 701 ? "column" : "row"}-reverse` : ""}`
+        }
+      >
 
-        <div>
-          <input type="number" placeholder="Criptomoeda" value={howManyCoins} onChange={(e) => {setHowManyCoins(e.target.value)}} />
-          <select name="coin" value={selectedCoin} onChange={(e) => {setSelectedCoin(e.target.value)}}>
-              <option value="BTC" className="BTC">Bitcoin</option>
-              <option value="ETH" className="ETH">Ethereum</option>
-              <option value="DOGE" className="DOGE">Dogecoin</option>
-              <option value="USDT" className="USDT">Tether</option>
-              <option value="ADA" className="ADA">Cardano</option>
-          </select>
+        <div className="column has-text-left is-two-fifths">
+          
+          <input 
+            className="input" 
+            type="number" 
+            placeholder="Criptomoeda" 
+            value={howManyCoins} 
+            onChange={(e) => {setHowManyCoins(e.target.value)}} 
+          />
+          
+          <div className="select is-small mt-2">
+            <select name="coin" value={selectedCoin} onChange={(e) => {setSelectedCoin(e.target.value)}}>
+                <option value="BTC" className="BTC">Bitcoin</option>
+                <option value="ETH" className="ETH">Ethereum</option>
+                <option value="DOGE" className="DOGE">Dogecoin</option>
+                <option value="USDT" className="USDT">Tether</option>
+                <option value="ADA" className="ADA">Cardano</option>
+            </select>
+          </div>
+
         </div>
 
-        <div className="invert-div">
-          <button onClick={invertConversion} id="invert-btn"><span className="material-icons-outlined">currency_exchange</span></button>
+        <div className="invert-div column is-one-fifth">
+          <button onClick={invertConversion} id="invert-btn">
+            <span className="material-icons-outlined">currency_exchange</span>
+          </button>
         </div>
 
-        <div>
-          <input type="number" id="brl-value" placeholder="R$" value={howManyBRL} onChange={(e) => {setHowManyBRL(e.target.value)}} />
+        <div className="column has-text-left is-two-fifths">
+          <input 
+            className="input mb-3" 
+            type="number" id="brl-value" 
+            placeholder="R$" 
+            value={howManyBRL} 
+            onChange={(e) => {setHowManyBRL(e.target.value)}} 
+          />
           <label>BRL</label>
         </div>
 
       </div>
 
-      <button onClick={convert} id="convert-btn">Converter</button>
+      <button className="button mb-3" onClick={convert} id="convert-btn">Converter</button>
       <p>{feedback}</p>
 
     </main>

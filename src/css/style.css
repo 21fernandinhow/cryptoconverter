@@ -1,21 +1,9 @@
+@import "https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css";
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
-:root {
-  --primary-color: #20335f;
-  --secondary-color: #d0efff;
-  --terciary-color: #fafafa;
-  --contrast-color: #111111;
-}
-
-.flex-central, main .row div, main .row, main, body {
+.flex-central, body {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
 }
 
 .material-symbols-outlined {
@@ -23,100 +11,24 @@
 }
 
 body {
-  font-family: "Roboto", sans-serif;
   min-height: 100vh;
-  background: var(--terciary-color);
-  background: linear-gradient(90deg, var(--terciary-color) 10%, var(--secondary-color) 100%);
-  color: var(--contrast-color);
+  padding: 1.5em;
 }
 
 main {
-  text-align: center;
-  flex-direction: column;
-  min-height: 40vh;
-  margin: 20px;
   animation: fadeUp 1s ease-out;
 }
-main h1 {
-  color: var(--primary-color);
-}
-main h1, main p {
-  margin: 10px;
-}
 main .hr-expand {
-  border: 2px solid var(--primary-color);
+  height: 3px;
   border-radius: 5px;
   animation: hr 3s linear infinite;
-  margin: 10px;
-}
-main input {
-  max-width: 12em;
-  font-weight: bold;
-  padding: 9px 5px;
-  border: none;
-  background-color: var(--secondary-color);
-  border-radius: 20px;
-  text-align: center;
-  margin: 5px;
-}
-main select {
-  font-size: 14px;
-  border: 1px solid var(--secondary-color);
-  background: var(--secondary-color);
-  padding: 7px 5px;
-  border-radius: 15px;
-}
-main select option {
-  margin: 15px;
-  background-color: var(--secondary-color);
-  border: none;
-  border-radius: 10px;
-}
-main select:focus, main input:focus {
-  outline: none;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
-}
-main button {
-  font-weight: bold;
-  cursor: pointer;
-  border: none;
-}
-main #invert-btn {
-  background: none;
-  color: var(--primary-color);
+  margin: 1rem auto 1rem auto;
 }
 main #invert-btn:hover {
   transform: rotate(360deg);
   transition: 1.5s;
 }
-main #convert-btn {
-  color: var(--terciary-color);
-  background-color: var(--primary-color);
-  padding: 12px 36px;
-  border-radius: 20px;
-}
-main #convert-btn:hover {
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
-  padding: 12px 60px;
-  transition: 0.4s;
-}
-main .row {
-  flex-wrap: wrap;
-}
-main .row div {
-  margin: 10px;
-}
 
-@media (max-width: 700px) {
-  main input {
-    max-width: 10em;
-  }
-  main .row .invert-div {
-    width: 100%;
-    min-height: 1px;
-    margin: 0px;
-  }
-}
 @keyframes hr {
   0% {
     width: 30%;
