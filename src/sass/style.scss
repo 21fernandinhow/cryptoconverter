@@ -40,6 +40,13 @@ main{
     }
 }
 
+footer{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
 @keyframes hr{
     0%{width: 30%;}
     50%{width: 50%;}
