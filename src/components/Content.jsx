@@ -55,7 +55,7 @@ export default function Content() {
 
       <div 
         className={`columns is-centered is-multiline mt-2 
-          ${invertedConversion ? `is-flex is-flex-direction-${window.innerWidth < 701 ? "column" : "row"}-reverse` : ""}`
+          ${invertedConversion ? `is-flex is-flex-direction-${window.innerWidth < 769 ? "column" : "row"}-reverse` : ""}`
         }
       >
 
