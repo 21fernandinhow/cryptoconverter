@@ -24,6 +24,23 @@ body{
     padding: 1.5em;
 }
 
+::-webkit-scrollbar{
+    width: 12px;             
+}
+::-webkit-scrollbar-track{
+    background: var(--bulma-background);
+}  
+::-webkit-scrollbar-thumb{
+    background-color: var(--bulma-primary);    
+    border-radius: 20px;      
+    border: 1px solid var(--bulma-background); 
+}
+
+::selection{
+    background-color: var(--bulma-primary);
+    color: var(--bulma-scheme-main);
+}
+
 main{
     animation: fadeUp 1s ease-out;
     .hr-expand{
@@ -63,4 +80,3 @@ footer{
         transform: translateY(0);
     }
 }
-
